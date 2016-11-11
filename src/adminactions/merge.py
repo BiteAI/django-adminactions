@@ -47,8 +47,10 @@ class MergeForm(GenericActionForm):
     other_pk = forms.CharField(widget=HiddenInput)
     field_names = forms.CharField(required=False, widget=HiddenInput)
 
+    _ACTION_FIELDS = ['dependencies', 'master_pk', 'other_pk', 'field_names']
+
     def action_fields(self):
-        for fieldname in ['dependencies', 'master_pk', 'other_pk', 'field_names']:
+        for fieldname in self._ACTION_FIELDS:
             bf = self[fieldname]
             yield HiddenInput().render(fieldname, bf.value())
 
